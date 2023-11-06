@@ -146,7 +146,7 @@ export const Switch48p = ({ DeviceSummary }) => {
                         <div className="text-small font-bold"></div>
                         <div className="text-tiny">
                           <div className="text-tiny">
-                            {port.port_id}
+                            <>{port.port_id ? port.port_id : port.id}</>
                             <br />
                           </div>
                         </div>
@@ -350,7 +350,7 @@ export const Switch48p = ({ DeviceSummary }) => {
                         <div className="text-small font-bold"></div>
                         <div className="text-tiny">
                           <div className="text-tiny">
-                            {port.port_id}
+                            <>{port.port_id ? port.port_id : port.id}</>
                             <br />
                           </div>
                         </div>
@@ -609,7 +609,7 @@ export const Switch48p = ({ DeviceSummary }) => {
                       radius="sm"
                       className="capitalize m-1 "
                     >
-                      Mac: {data.mac}
+                      Model: {data.model}
                     </Chip>
                     {data.version ? (
                       <Chip
@@ -640,61 +640,74 @@ export const Switch48p = ({ DeviceSummary }) => {
                 {deviceDetails?.map((data1) =>
                   data1.custom?.vc_members?.map((member) =>
                     data.id === data1.id ? (
-                      <Card key={member.id} className="m-3 bg-slate-800">
-                        <CardBody className="text-center flex flex-row ">
-                          <div className="mt-14 mr-1">
-                            <Chip
-                              size="md"
-                              variant="flat"
-                              className="capitalize"
-                            >
-                              {member.id}
-                            </Chip>
-                          </div>
-
-                          {member.pics.map((pic) => (
-                            <div key={pic.id} className="m-3 ">
-                              <div key={pic.id} className="text-center">
-                                {/* <p key={pic.pic_id}>{pic.id}</p> */}
-
-                                <DisplayPorts
-                                  key={pic.id}
-                                  memberid={member.id}
-                                  pic_id={pic.id}
-                                  ports={pic.ports}
-                                ></DisplayPorts>
-                              </div>
+                      <>
+                        <div key={data1.id} className="flex justify-center">
+                          <Chip
+                            size="md"
+                            variant="flat"
+                            radius="sm"
+                            className="capitalize flex justify-center"
+                          >
+                            {" "}
+                            {data.name}
+                          </Chip>
+                        </div>
+                        <Card key={member.id} className="m-3 bg-slate-800">
+                          <CardBody className="text-center flex flex-row ">
+                            <div className="mt-14 mr-1">
+                              <Chip
+                                size="md"
+                                variant="flat"
+                                className="capitalize"
+                              >
+                                {member.id}
+                              </Chip>
                             </div>
-                          ))}
 
-                          <div className="flex flex-col ml-12 mt-6">
-                            <Chip
-                              size="md"
-                              radius="sm"
-                              variant="dot"
-                              className="capitalize m-1"
-                            >
-                              Serial: {member.serial}
-                            </Chip>
-                            <Chip
-                              size="md"
-                              variant="dot"
-                              radius="sm"
-                              className="capitalize m-1"
-                            >
-                              Mac: {member.mac}
-                            </Chip>
-                            <Chip
-                              size="md"
-                              variant="dot"
-                              radius="sm"
-                              className="capitalize m-1"
-                            >
-                              Model: {member.model}
-                            </Chip>
-                          </div>
-                        </CardBody>
-                      </Card>
+                            {member.pics.map((pic) => (
+                              <div key={pic.id} className="m-3 ">
+                                <div key={pic.id} className="text-center">
+                                  {/* <p key={pic.pic_id}>{pic.id}</p> */}
+
+                                  <DisplayPorts
+                                    key={pic.id}
+                                    memberid={member.id}
+                                    pic_id={pic.id}
+                                    ports={pic.ports}
+                                  ></DisplayPorts>
+                                </div>
+                              </div>
+                            ))}
+
+                            <div className="flex flex-col ml-12 mt-6">
+                              <Chip
+                                size="md"
+                                radius="sm"
+                                variant="dot"
+                                className="capitalize m-1"
+                              >
+                                Serial: {member.serial}
+                              </Chip>
+                              <Chip
+                                size="md"
+                                variant="dot"
+                                radius="sm"
+                                className="capitalize m-1"
+                              >
+                                Mac: {member.mac}
+                              </Chip>
+                              <Chip
+                                size="md"
+                                variant="dot"
+                                radius="sm"
+                                className="capitalize m-1"
+                              >
+                                Model: {member.model}
+                              </Chip>
+                            </div>
+                          </CardBody>
+                        </Card>
+                      </>
                     ) : (
                       ""
                     )
