@@ -1,0 +1,4 @@
+node_modules
+cloud-init.sh
+authConfig.js // add this line to ignore authConfig.js
+
