@@ -875,16 +875,13 @@ const SwitchCard = ({ setGroupSelected, groupSelected }, index) => {
         return a.port_id - b.port_id;
       }
     });
-    console.log(switchData.ports);
   });
 
-  console.log(groupSelected);
   const [isSelected, setIsSelected] = React.useState(false);
 
   const generateRandomKey =
     Math.random().toString(36).substring(2, 15) +
     Math.random().toString(36).substring(2, 15);
-  console.log(groupSelected);
 
   const ClientIcon = (
     <svg

@@ -40,7 +40,7 @@ export const SiteDropdown = () => {
           }),
         });
       } catch (err) {
-        console.log("Error occured when fetching books");
+        console.log("Error occured ");
       }
     })();
   }, []);
@@ -60,7 +60,6 @@ export const SiteDropdown = () => {
     return fetch(url, options)
       .then(async (response) => {
         let text = await response.json();
-        console.log(text);
 
         setSiteList(text);
       })
@@ -69,7 +68,6 @@ export const SiteDropdown = () => {
         console.error("Error:", error);
       });
   }
-  console.log(siteList);
 
   async function GetDeviceSummary({ token }) {
     const headers = new Headers();
@@ -86,7 +84,7 @@ export const SiteDropdown = () => {
     return fetch(url1, options)
       .then(async (response) => {
         let text = await response.json();
-        console.log(text);
+
         JSON.stringify(text);
         setSiteDeviceSummary(text);
       })
@@ -95,11 +93,8 @@ export const SiteDropdown = () => {
         console.error("Error:", error);
       });
   }
-  console.log(siteDeviceSummary);
 
   useEffect(() => {
-    console.log(JSON.stringify(siteId));
-
     if (siteId) {
       (async () => {
         try {
@@ -112,7 +107,7 @@ export const SiteDropdown = () => {
               }),
           });
         } catch (err) {
-          console.log("Error occured when fetching books");
+          console.log("Error occured ");
         }
       })();
     }

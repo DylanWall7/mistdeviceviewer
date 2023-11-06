@@ -68,8 +68,6 @@ export const Switch48p = ({ DeviceSummary }) => {
     account: accounts[0],
   };
 
-  console.log(DeviceSummary);
-
   const DisplayPorts = ({ ports, pic_id, memberid }) => {
     return (
       <>
@@ -546,7 +544,7 @@ export const Switch48p = ({ DeviceSummary }) => {
                           .then((deviceDetails) => {
                             // Add device details to an array
                             setLoading(false);
-                            console.log(deviceDetails);
+
                             setDeviceDetails((prevDeviceDetails) => [
                               ...prevDeviceDetails,
                               { ...deviceDetails, id: data.id },

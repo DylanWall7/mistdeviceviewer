@@ -5,7 +5,6 @@ import { Button } from "@nextui-org/react";
 
 function handleLogin(instance) {
   instance.loginRedirect(loginRequest).catch((e) => {
-    console.log(loginRequest);
     console.error(e);
   });
 }

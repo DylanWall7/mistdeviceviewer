@@ -47,8 +47,6 @@ export const DeviceSummary = ({ DeviceSummaryData }) => {
 
   const Numberofphysicaldevices = NumberOfDevices + sumVCMembers - NumOfStacks;
 
-  console.log(Numberofphysicaldevices);
-
   return (
     <>
       {DeviceSummaryData.length > 0 ? (

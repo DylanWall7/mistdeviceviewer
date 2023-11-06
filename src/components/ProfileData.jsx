@@ -8,9 +8,6 @@ import { Card } from "@nextui-org/react";
 export const ProfileData = (props) => {
   return (
     <div id="profile-div">
-      {console.log(props.graphData)}
-      {console.log(props.dhcpData)}
-
       <div>
         <Card
           maxW={"320px"}

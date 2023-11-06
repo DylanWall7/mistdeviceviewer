@@ -295,8 +295,6 @@ const MyCheckBox = extendVariants(Checkbox, {
 
 const clientData = switchData.map((switchData) => switchData.clients);
 
-console.log(clientData);
-
 // const ports2 = switchData.ports.map((port) => port);
 
 const ports = switchData.map((switchData) => switchData.ports);
@@ -333,8 +331,6 @@ ports.forEach((port) => {
 
 //sort all ports even numbers first then odd numbers
 
-console.log(NewTestData);
-
 //sort ports by port_id value with all even ports first then odd ports after
 
 //convert port_id to number
@@ -350,13 +346,11 @@ const SwitchCard = (
 
   //now sort all ports by port_id value with all even ports first then odd ports after and merge them
 
-  console.log(groupSelected);
   const [isSelected, setIsSelected] = React.useState(false);
 
   const generateRandomKey =
     Math.random().toString(36).substring(2, 15) +
     Math.random().toString(36).substring(2, 15);
-  console.log(groupSelected);
 
   const ClientIcon = (
     <svg
@@ -497,8 +491,6 @@ const SwitchCard = (
       return " ";
     }
   };
-
-  console.log(switchData.status);
 
   return (
     <>

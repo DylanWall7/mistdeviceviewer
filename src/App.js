@@ -122,8 +122,6 @@ function App() {
     account: accounts[0],
   };
 
-  console.log(accounts.length);
-
   useEffect(() => {
     (async () => {
       setIsLoading(true);
@@ -179,7 +177,7 @@ function App() {
     return fetch(url1, options)
       .then(async (response) => {
         let text = await response.json();
-        console.log(text);
+
         JSON.stringify(text);
         setSiteDeviceSummary(text);
         setLoading(false);
@@ -189,11 +187,8 @@ function App() {
         console.error("Error:", error);
       });
   }
-  console.log(siteDeviceSummary);
 
   useEffect(() => {
-    console.log(JSON.stringify(siteId));
-
     if (siteId) {
       (async () => {
         try {
@@ -207,7 +202,7 @@ function App() {
               }),
           });
         } catch (err) {
-          console.log("Error occured when fetching books");
+          console.log("Error occured ");
         }
       })();
     }
@@ -218,8 +213,6 @@ function App() {
       return -1;
     }
   });
-
-  console.log(SortSiteList);
 
   return (
     <NextUIProvider>
