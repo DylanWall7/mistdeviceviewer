@@ -371,7 +371,7 @@ export const Switch48p = ({ DeviceSummary }) => {
                               {port.port_id}
                             </dt>
                           </div>
-                          <div class="flex justify-end">
+                          <div className="flex justify-end">
                             <img
                               width="24"
                               height="24"
@@ -498,7 +498,14 @@ export const Switch48p = ({ DeviceSummary }) => {
     // Check if data already exists in deviceDetails array
     const [deviceDetails, setDeviceDetails] = useState([]);
     const [loading, setLoading] = useState(false);
-
+    const AnchorIcon = (props) => (
+      <img
+        width="30"
+        height="30"
+        src="https://img.icons8.com/ios-glyphs/30/18bb5e/double-left--v1.png"
+        alt="double-left--v1"
+      />
+    );
     return (
       <>
         {DeviceSummary.length === 0 && <LadningPage />}
@@ -512,6 +519,7 @@ export const Switch48p = ({ DeviceSummary }) => {
               key={data.id}
             >
               <AccordionItem
+                indicator={<AnchorIcon />}
                 className=""
                 isDisabled={data.status === "disconnected" ? true : false}
                 key={data.id}
@@ -550,7 +558,10 @@ export const Switch48p = ({ DeviceSummary }) => {
                               { ...deviceDetails, id: data.id },
                             ]);
                           })
-                          .catch((error) => console.error(error));
+                          .catch((error) => {
+                            console.log(error.message);
+                            setLoading(false);
+                          });
                       }
 
                       GetSwitchDetails({
@@ -699,11 +710,26 @@ export const Switch48p = ({ DeviceSummary }) => {
     );
   };
 
+  const NSWAMessage = () => {
+    const hasAPs = DeviceSummary.some((ap) => ap.type === "switch");
+
+    if (!hasAPs && DeviceSummary.length > 0) {
+      return (
+        <div className="grid mt-40 px-4 place-content-center">
+          <h1 className="tracking-widest text-gray-500 uppercase">
+            No Switches at Selected Site
+          </h1>
+        </div>
+      );
+    }
+  };
+
   return (
     <>
       {/* <button onClick={onCreate}>Get Device List</button> */}
 
       <SwitchBox />
+      <NSWAMessage />
     </>
   );
 };

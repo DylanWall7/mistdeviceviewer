@@ -29,6 +29,7 @@ import APLoadingModal from "./components/APLoadingModal";
 import { SignInButton } from "./components/SignInButton";
 import { DeviceSummary } from "./components/DeviceSummary";
 import SumLoadingModal from "./components/SumLoadingModal";
+import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 
 function App() {
   const RouterIcon = () => (
@@ -111,10 +112,11 @@ function App() {
   const [siteList, setSiteList] = useState([]);
   const [siteDeviceSummary, setSiteDeviceSummary] = useState([]);
   const [siteId, setSiteId] = useState();
+  const [selectedKey, setSelectedKey] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const url1 = `https://netman2test.kiewitplaza.com/api/mist/site/${siteId?.currentKey}/devicesummary`;
+  const url1 = `https://netman2test.kiewitplaza.com/api/mist/site/${siteId}/devicesummary`;
 
   const { instance, accounts } = useMsal();
   const request = {
@@ -133,6 +135,7 @@ function App() {
         });
       } catch (err) {
         console.log({ err });
+        setLoading(false);
       }
     })();
   }, [accounts.length === 0]);
@@ -159,6 +162,7 @@ function App() {
 
       .catch((error) => {
         console.error("Error:", error);
+        setLoading(false);
       });
   }
 
@@ -185,8 +189,42 @@ function App() {
 
       .catch((error) => {
         console.error("Error:", error);
+        setLoading(false);
       });
   }
+  const SearchIcon = ({
+    size = 24,
+    strokeWidth = 1.5,
+    width,
+    height,
+    ...props
+  }) => (
+    <svg
+      aria-hidden="true"
+      fill="none"
+      focusable="false"
+      height={height || size}
+      role="presentation"
+      viewBox="0 0 24 24"
+      width={width || size}
+      {...props}
+    >
+      <path
+        d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={strokeWidth}
+      />
+      <path
+        d="M22 22L20 20"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={strokeWidth}
+      />
+    </svg>
+  );
 
   useEffect(() => {
     if (siteId) {
@@ -203,6 +241,7 @@ function App() {
           });
         } catch (err) {
           console.log("Error occured ");
+          setLoading(false);
         }
       })();
     }
@@ -213,6 +252,10 @@ function App() {
       return -1;
     }
   });
+
+  const onSelectionChange = (id) => {
+    setSiteId(id);
+  };
 
   return (
     <NextUIProvider>
@@ -228,7 +271,7 @@ function App() {
 
             <div className=" flex justify-end m-4">
               <div className="flex justify-center w-3/12 ">
-                <Select
+                {/* <Select
                   isDisabled={isLoading}
                   size="small"
                   placeholder="SiteCode"
@@ -248,7 +291,35 @@ function App() {
                       {site.name}
                     </SelectItem>
                   ))}
-                </Select>
+                </Select> */}
+
+                <Autocomplete
+                  defaultItems={SortSiteList}
+                  isDisabled={isLoading}
+                  label="Select a Site"
+                  allowsCustomValue={false}
+                  menuTrigger="input"
+                  placeholder="SiteCode"
+                  className="max-w-sm"
+                  variant="bordered"
+                  onSelectionChange={onSelectionChange}
+                  startContent={
+                    <SearchIcon
+                      className="text-default-400"
+                      strokeWidth={2.5}
+                      size={20}
+                    />
+                  }
+                >
+                  {(site) => (
+                    <AutocompleteItem
+                      value={JSON.stringify(site.id)}
+                      key={site.id}
+                    >
+                      {site.name}
+                    </AutocompleteItem>
+                  )}
+                </Autocomplete>
               </div>
             </div>
 
