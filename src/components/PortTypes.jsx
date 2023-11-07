@@ -1,3 +1,5 @@
+import SingleStack from "../Images/SingleStack.png";
+
 export const CopperPortDown = () => {
   return (
     <img
@@ -73,4 +75,8 @@ export const FiberPortErr = () => {
       alt="rounded-square"
     />
   );
+};
+
+export const SingleSWA = () => {
+  return <img width="48" height="48" src={SingleStack} alt="SingleStack" />;
 };

@@ -25,6 +25,7 @@ import { FiberPortUp } from "./PortTypes";
 import { FiberPortDown } from "./PortTypes";
 import { CopperPortErr } from "./PortTypes";
 import { FiberPortErr } from "./PortTypes";
+import { SingleSWA } from "./PortTypes";
 
 import LoadingModal from "./LoadingModal";
 
@@ -68,7 +69,7 @@ export const Switch48p = ({ DeviceSummary }) => {
     account: accounts[0],
   };
 
-  const DisplayPorts = ({ ports, pic_id, memberid }) => {
+  const DisplayPorts = ({ ports, pic_id, memberid, clients }) => {
     return (
       <>
         <div className="flex flex-row ">
@@ -139,21 +140,24 @@ export const Switch48p = ({ DeviceSummary }) => {
                   ""
                 )}
 
-                {!port.up ? (
+                {!port.up && port.stp_state !== "blocking" ? (
                   <Tooltip
                     content={
                       <div className="px-1 py-2">
                         <div className="text-small font-bold"></div>
                         <div className="text-tiny">
                           <div className="text-tiny">
-                            <>{port.port_id ? port.port_id : port.id}</>
+                            <>
+                              {port.port_id
+                                ? port.port_id
+                                : `${memberid}/${pic_id}/${port.id}`}
+                            </>
                             <br />
                           </div>
                         </div>
                       </div>
                     }
                   >
-                    {/* <p key={port.port_id}>{`${memberid}/${pic_id}/${port.id}`}</p> */}
                     <p key={port.port_id}>{`${port.id}`}</p>
                   </Tooltip>
                 ) : (
@@ -262,6 +266,20 @@ export const Switch48p = ({ DeviceSummary }) => {
                                   <dd className="text-gray-700 sm:col-span-2">
                                     {port.neighbor_system_name}
                                   </dd>
+                                </div>
+                                <div className="grid grid-cols-1 gap-1 py-1 sm:grid-cols-3 sm:gap-4 text-center">
+                                  <dt className="font-medium text-gray-900">
+                                    Connected Mac
+                                  </dt>
+
+                                  {clients.map(
+                                    (client) =>
+                                      client.port_id === port.port_id && (
+                                        <dd className="text-gray-700 sm:col-span-3 text-center">
+                                          {client.mac}
+                                        </dd>
+                                      )
+                                  )}
                                 </div>
                               </dl>
                             </div>
@@ -343,21 +361,24 @@ export const Switch48p = ({ DeviceSummary }) => {
                   ""
                 )}
 
-                {!port.up ? (
+                {!port.up && port.stp_state !== "blocking" ? (
                   <Tooltip
                     content={
                       <div className="px-1 py-2">
                         <div className="text-small font-bold"></div>
                         <div className="text-tiny">
                           <div className="text-tiny">
-                            <>{port.port_id ? port.port_id : port.id}</>
+                            <>
+                              {port.port_id
+                                ? port.port_id
+                                : `${memberid}/${pic_id}/${port.id}`}
+                            </>
                             <br />
                           </div>
                         </div>
                       </div>
                     }
                   >
-                    {/* <p key={port.port_id}>{`${memberid}/${pic_id}/${port.id}`}</p> */}
                     <p key={port.port_id}>{`${port.id}`}</p>
                   </Tooltip>
                 ) : (
@@ -467,6 +488,20 @@ export const Switch48p = ({ DeviceSummary }) => {
                                     {port.neighbor_system_name}
                                   </dd>
                                 </div>
+                                <div className="grid grid-cols-1 gap-1 py-1 sm:grid-cols-3 sm:gap-4 text-center">
+                                  <dt className="font-medium text-gray-900">
+                                    Connected Mac
+                                  </dt>
+
+                                  {clients.map(
+                                    (client) =>
+                                      client.port_id === port.port_id && (
+                                        <dd className="text-gray-700 sm:col-span-3 text-center">
+                                          {client.mac}
+                                        </dd>
+                                      )
+                                  )}
+                                </div>
                               </dl>
                             </div>
                           </CardBody>
@@ -506,6 +541,13 @@ export const Switch48p = ({ DeviceSummary }) => {
         alt="double-left--v1"
       />
     );
+
+    DeviceSummary.sort((a, b) => {
+      if (a.name < b.name) {
+        return -1;
+      }
+    });
+
     return (
       <>
         {DeviceSummary.length === 0 && <LadningPage />}
@@ -520,6 +562,7 @@ export const Switch48p = ({ DeviceSummary }) => {
             >
               <AccordionItem
                 indicator={<AnchorIcon />}
+                isCompact={true}
                 className=""
                 isDisabled={data.status === "disconnected" ? true : false}
                 key={data.id}
@@ -576,14 +619,18 @@ export const Switch48p = ({ DeviceSummary }) => {
 
                   onGet();
                 }}
-                aria-label={data.name}
+                aria-label={data.name ? data.name : data.mac}
                 startContent={
-                  <img
-                    width="50"
-                    height="50"
-                    src="https://img.icons8.com/ios/50/AEAEAE/switch.png"
-                    alt="switch"
-                  />
+                  data.custom?.vc_member_count === 1 ? (
+                    <SingleSWA />
+                  ) : (
+                    <img
+                      width="48"
+                      height="48"
+                      src="https://img.icons8.com/fluency/48/stack.png"
+                      alt="stack"
+                    />
+                  )
                 }
                 subtitle={
                   <>
@@ -595,14 +642,7 @@ export const Switch48p = ({ DeviceSummary }) => {
                     >
                       IP: {data.ip}
                     </Chip>
-                    <Chip
-                      size="md"
-                      radius="sm"
-                      variant="bordered"
-                      className="capitalize m-1 "
-                    >
-                      Serial: {data.serial}
-                    </Chip>
+
                     <Chip
                       size="md"
                       variant="bordered"
@@ -619,6 +659,18 @@ export const Switch48p = ({ DeviceSummary }) => {
                         className="capitalize m-1 "
                       >
                         Version: {data.version}
+                      </Chip>
+                    ) : (
+                      ""
+                    )}
+                    {data.custom?.vc_member_count !== 1 ? (
+                      <Chip
+                        size="md"
+                        variant="bordered"
+                        radius="sm"
+                        className="capitalize m-1 "
+                      >
+                        Stack Count: {data.custom?.vc_member_count}
                       </Chip>
                     ) : (
                       ""
@@ -648,8 +700,7 @@ export const Switch48p = ({ DeviceSummary }) => {
                             radius="sm"
                             className="capitalize flex justify-center"
                           >
-                            {" "}
-                            {data.name}
+                            {data1.name}_{member.id}
                           </Chip>
                         </div>
                         <Card key={member.id} className="m-3 bg-slate-800">
@@ -674,12 +725,21 @@ export const Switch48p = ({ DeviceSummary }) => {
                                     memberid={member.id}
                                     pic_id={pic.id}
                                     ports={pic.ports}
+                                    clients={data1.clients}
                                   ></DisplayPorts>
                                 </div>
                               </div>
                             ))}
 
-                            <div className="flex flex-col ml-12 mt-6">
+                            <div className="flex flex-col ml-12 ">
+                              <Chip
+                                size="md"
+                                radius="sm"
+                                variant="dot"
+                                className="capitalize m-1"
+                              >
+                                Role: {member.vc_role}
+                              </Chip>
                               <Chip
                                 size="md"
                                 radius="sm"
