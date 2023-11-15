@@ -124,6 +124,7 @@ export const AccessPoints = ({ DeviceSummary }) => {
                 <TableColumn>Up Time</TableColumn>
                 <TableColumn>Model</TableColumn>
                 <TableColumn>Serial Number</TableColumn>
+                <TableColumn>No. Clients</TableColumn>
                 <TableColumn>LLDP Neighbor</TableColumn>
                 <TableColumn>LLDP Neighbor Port</TableColumn>
               </TableHeader>
@@ -136,7 +137,6 @@ export const AccessPoints = ({ DeviceSummary }) => {
                         <TableCell>{ap.name}</TableCell>
                         <TableCell>{ap.ip}</TableCell>
                         <TableCell>{ap.mac}</TableCell>
-
                         <TableCell>
                           {ap.status === "connected"
                             ? uptimetodhm(ap.uptime)
@@ -144,6 +144,8 @@ export const AccessPoints = ({ DeviceSummary }) => {
                         </TableCell>
                         <TableCell>{ap.model}</TableCell>
                         <TableCell>{ap.serial}</TableCell>
+                        <TableCell>{ap.num_clients}</TableCell>
+
                         <TableCell>{ap.lldp_stat?.system_name}</TableCell>
                         <TableCell>{ap.lldp_stat?.port_id}</TableCell>
                       </TableRow>

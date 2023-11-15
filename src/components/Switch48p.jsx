@@ -72,7 +72,7 @@ export const Switch48p = ({ DeviceSummary }) => {
   const DisplayPorts = ({ ports, pic_id, memberid, clients }) => {
     return (
       <>
-        <div className="flex flex-row ">
+        <div key={pic_id} className="flex flex-row ">
           {ports
             .filter((port) => port.id % 2 === 0)
 
@@ -542,7 +542,7 @@ export const Switch48p = ({ DeviceSummary }) => {
       />
     );
 
-    DeviceSummary.sort((a, b) => {
+    const SortedSwitches = DeviceSummary.sort((a, b) => {
       if (a.name < b.name) {
         return -1;
       }
@@ -553,7 +553,7 @@ export const Switch48p = ({ DeviceSummary }) => {
         {DeviceSummary.length === 0 && <LadningPage />}
         {loading && <LoadingModal loading={loading} />}
         {DeviceSummary.map((data) =>
-          data.type === "switch" ? (
+          data.type === "switch" && data.name !== "" ? (
             <Accordion
               selectionMode="multiple"
               variant="splitted"
@@ -563,7 +563,6 @@ export const Switch48p = ({ DeviceSummary }) => {
               <AccordionItem
                 indicator={<AnchorIcon />}
                 isCompact={true}
-                className=""
                 isDisabled={data.status === "disconnected" ? true : false}
                 key={data.id}
                 onPress={() => {
@@ -685,7 +684,7 @@ export const Switch48p = ({ DeviceSummary }) => {
                     className="capitalize"
                     color={data.status === "connected" ? "success" : "danger"}
                   >
-                    {data.name}
+                    {data.name !== "" ? data.name : data.mac}
                   </Chip>
                 }
               >

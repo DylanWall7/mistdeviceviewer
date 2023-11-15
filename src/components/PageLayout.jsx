@@ -11,7 +11,6 @@ import {
   NavbarContent,
   NavbarItem,
   Link,
-  Avatar,
   User,
   Image,
 } from "@nextui-org/react";
@@ -60,7 +59,7 @@ export const PageLayout = (props) => {
             ""
           )}
 
-          <NavbarItem className="ml-20">
+          <NavbarItem className="ml-5">
             {isAuthenticated ? <SignOutButton /> : <SignInButton />}
           </NavbarItem>
         </NavbarContent>

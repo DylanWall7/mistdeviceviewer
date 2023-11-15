@@ -34,30 +34,47 @@ import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 function App() {
   const RouterIcon = () => (
     <svg
-      aria-hidden="true"
-      focusable="false"
-      height="24"
-      role="presentation"
-      width="24"
-      fill="#243a94"
-      viewBox="0 -127 1278 1278"
+      fill="currentColor"
+      viewBox="0 0 34 34"
+      data-reactroot=""
+      role="img"
+      style={{ width: "24px", height: "24px" }}
     >
-      <path
-        d="M186.97049 390.020858c249.283591-143.926213 654.058848-143.926213 903.342438 0 249.283591 143.921015 249.283591 377.621133 0 521.542148-249.283591 143.926213-654.058848 143.926213-903.342438 0-249.288789-143.921015-249.288789-377.621133 0-521.542148z"
-        fill="#4467AE"
-      ></path>
-      <path
-        d="M0.005198 368.719633h1277.273022v282.072299H0.005198z"
-        fill="#4467AE"
-      ></path>
-      <path
-        d="M186.97049 107.948559c249.283591-143.926213 654.058848-143.926213 903.342438 0 249.283591 143.921015 249.283591 377.621133 0 521.542148-249.283591 143.926213-654.058848 143.926213-903.342438 0-249.288789-143.921015-249.288789-377.621133 0-521.542148z"
-        fill="#6D8ACA"
-      ></path>
-      <path
-        d="M436.243685 524.263279l57.323062 33.095388-164.5621-6.819719-11.814955-95.008246 57.323063 33.095388 148.037797-85.475194 61.73093 35.642386-148.037797 85.469997zM846.320857 216.221989l-57.323063-33.09019 164.562101 6.819719 11.814954 95.008246-57.323062-33.095388-148.037797 85.469996-61.73093-35.637188 148.037797-85.475195zM445.418078 199.744468l57.323062-33.09019-164.5621 6.819718-11.814955 95.008246 57.323063-33.095388 148.042995 85.469997 61.730929-35.637189L445.418078 199.744468zM865.501316 513.560686l-57.323063 33.095388 164.5621-6.819718 11.814955-95.008246-57.323062 33.095388-148.037797-85.469997-61.73093 35.637189 148.037797 85.469996z"
-        fill="#FFFFFF"
-      ></path>
+      <g
+        id="icon"
+        stroke="none"
+        stroke-width="1"
+        fill="none"
+        fill-rule="evenodd"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <g
+          id="router"
+          transform="translate(1.000000, 1.000000)"
+          stroke="#748893"
+          stroke-width="3"
+        >
+          <path
+            d="M32.0000772,12 C32.0185689,21.5945056 25.3645995,29.9119673 16.0000386,32 C6.63547767,29.9119673 -0.0184916759,21.5945056 0,12 L0,4 C0,1.790861 1.79089961,0 4.00003861,0 L28.0000386,0 C30.2091776,0 32.0000772,1.790861 32.0000772,4 L32.0000772,12 Z"
+            id="Path"
+          ></path>
+          <line
+            x1="16.0000386"
+            y1="10"
+            x2="16.0000386"
+            y2="22"
+            id="Path"
+          ></line>
+          <line
+            x1="10.0000386"
+            y1="16"
+            x2="22.0000386"
+            y2="16"
+            id="Path"
+          ></line>
+        </g>
+      </g>
     </svg>
   );
 
@@ -297,11 +314,11 @@ function App() {
                   defaultItems={SortSiteList}
                   isDisabled={isLoading}
                   label="Select a Site"
-                  allowsCustomValue={false}
                   menuTrigger="input"
                   placeholder="SiteCode"
                   className="max-w-sm"
                   variant="bordered"
+                  onInputChange={(value) => {}}
                   onSelectionChange={onSelectionChange}
                   startContent={
                     <SearchIcon
@@ -351,13 +368,13 @@ function App() {
                 key="routers"
                 title={
                   <div className="flex items-center space-x-2">
-                    {/* <RouterIcon /> */}
-                    <img
+                    <RouterIcon />
+                    {/* <img
                       width="30"
                       height="30"
                       src="https://img.icons8.com/color/48/network-gateway.png"
                       alt="network-gateway"
-                    />
+                    /> */}
                     <span>Router's</span>
                   </div>
                 }
@@ -366,16 +383,22 @@ function App() {
                 <Routers DeviceSummary={siteDeviceSummary} />
               </Tab>
               <Tab
-                key="music"
+                key="switches"
                 title={
                   <div className="flex items-center space-x-2">
                     {/* <SwitchIcon /> */}
                     <img
                       width="30"
                       height="30"
+                      src="https://img.icons8.com/ios/50/748893/switch.png"
+                      alt="switch"
+                    />
+                    {/* <img
+                      width="30"
+                      height="30"
                       src="https://img.icons8.com/color/48/internet-hub.png"
                       alt="internet-hub"
-                    />
+                    /> */}
                     <span>Switches</span>
                   </div>
                 }
