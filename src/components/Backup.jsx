@@ -996,6 +996,63 @@ const SwitchCard = ({ setGroupSelected, groupSelected }, index) => {
   //   }
   // }
 
+  const MyCheckBox = extendVariants(Checkbox, {
+    variants: {
+      // <- modify/add variants
+
+      isDisabled: {
+        true: {
+          wrapper: "before:border-gray-500",
+          label: "text-danger",
+        },
+        false: {
+          wrapper: "before:border-success",
+          label: "text-success",
+        },
+      },
+      isInvalid: {
+        true: {
+          wrapper: "before:border-danger",
+          label: "text-danger",
+        },
+      },
+    },
+    defaultVariants: {
+      // <- modify/add default variants
+      isDisabled: true,
+    },
+    compoundVariants: [
+      // <- modify/add compound variants
+      {
+        isDisabled: true,
+      },
+    ],
+  });
+
+  //   {
+  //     /* <Select
+  //   isDisabled={isLoading}
+  //   size="small"
+  //   placeholder="SiteCode"
+  //   variant="bordered"
+  //   bordered={false}
+  //   radius="sm"
+  //   label="Select a Site"
+  //   clearable
+  //   onSelectionChange={(value) => setSiteId(value)}
+  // >
+  //   {SortSiteList.map((site) => (
+  //     <SelectItem
+  //       key={site.id}
+  //       value={JSON.stringify(site.id)}
+  //       label={site.name}
+  //     >
+  //       {site.name}
+  //     </SelectItem>
+  //   ))}
+  // </Select> */
+  //   }
+
   const NoClientIcon = (
     <svg fill="#d61f1f" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

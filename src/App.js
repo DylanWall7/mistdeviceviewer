@@ -8,18 +8,11 @@ import {
 
 import { GizmoRequest } from "./authConfig";
 
-import { Card } from "@nextui-org/react";
-
-import { loginRequest } from "./authConfig";
-
-import { callMsGraph, callDHCP } from "./graph";
-
 import { NextUIProvider } from "@nextui-org/react";
 
 import { Tabs, Tab } from "@nextui-org/react";
 import { AccessPoints } from "./components/AccessPoints";
 import { Routers } from "./components/Routers";
-import { Select, SelectItem } from "@nextui-org/react";
 
 import { Switch48p } from "./components/Switch48p";
 
@@ -30,6 +23,10 @@ import { SignInButton } from "./components/SignInButton";
 import { DeviceSummary } from "./components/DeviceSummary";
 import SumLoadingModal from "./components/SumLoadingModal";
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
+import SummaryIconPNG from "./Images/SummaryIcon.png";
+import WIFIIcon from "./Images/WIFIIcon.png";
+import CautionIcon from "./Images/CautionIcon.png";
+import SwitchIconPNG from "./Images/SwitchIcon.png";
 
 function App() {
   const RouterIcon = () => (
@@ -75,36 +72,6 @@ function App() {
           ></line>
         </g>
       </g>
-    </svg>
-  );
-
-  const SwitchIcon = () => (
-    <svg
-      aria-hidden="true"
-      focusable="false"
-      height="24"
-      role="presentation"
-      width="24"
-      fill="#243a94"
-      viewBox="0 -166 1356 1356"
-    >
-      <path d="M0 389.700161h1353.843886v242.365139H0z" fill="#4467AE"></path>
-      <path
-        d="M711.710196 249.301199c-19.198737-11.087447-48.289414-12.293043-64.920585-2.693674L11.223644 613.552592c-16.626126 9.599369-14.537772 26.397002 4.660965 37.48445l626.244037 361.557718c19.203781 11.087447 48.294458 12.293043 64.920585 2.693674l635.565967-366.945067c16.631171-9.599369 14.542816-26.397002-4.660965-37.484449L711.710196 249.301199z"
-        fill="#4467AE"
-      ></path>
-      <path
-        d="M711.710196 9.170701c-19.198737-11.082403-48.289414-12.293043-64.920585-2.68863L11.223644 373.427138c-16.626126 9.599369-14.537772 26.391958 4.660965 37.479405l626.244037 361.562763c19.203781 11.087447 48.294458 12.293043 64.920585 2.693674l635.565967-366.945067c16.631171-9.604413 14.542816-26.397002-4.660965-37.48445L711.710196 9.170701z"
-        fill="#6D8ACA"
-      ></path>
-      <path
-        d="M296.203321 413.751548l-60.274753 34.800863 12.424196-99.908088 173.04085-7.173044-60.274753 34.800864 187.139765 108.0446-64.915541 37.479405L296.203321 413.751548zM533.21642 276.913886l-60.274752 34.800864 12.424196-99.908089 173.040849-7.173043-60.274752 34.800863 187.139765 108.0446-64.915541 37.474361-187.139765-108.039556z"
-        fill="#FFFFFF"
-      ></path>
-      <path
-        d="M1057.640566 367.888459l60.274752-34.800864-12.424195 99.908089-173.045895 7.173043 60.279797-34.800863-187.139764-108.0446 64.91554-37.479405 187.139765 108.0446zM820.622422 504.731164l60.279797-34.800863-12.424196 99.908089-173.045894 7.173043 60.279797-34.805908-187.139765-108.039556 64.91554-37.479405 187.134721 108.0446z"
-        fill="#FFFFFF"
-      ></path>
     </svg>
   );
 
@@ -280,36 +247,14 @@ function App() {
         <PageLayout>
           <AuthenticatedTemplate>
             {/* <div className="px-4 py-3 text-black bg-yellow-500">
-            <p className="text-sm font-medium text-center">
-              This tool is currently under development. Modifications will be
-              made frequently and you may encounter bugs.
-            </p>
-          </div> */}
+              <p className="text-sm font-medium text-center">
+                This tool is currently under development. Modifications will be
+                made frequently and you may encounter bugs.
+              </p>
+            </div> */}
 
             <div className=" flex justify-end m-4">
               <div className="flex justify-center w-3/12 ">
-                {/* <Select
-                  isDisabled={isLoading}
-                  size="small"
-                  placeholder="SiteCode"
-                  variant="bordered"
-                  bordered={false}
-                  radius="sm"
-                  label="Select a Site"
-                  clearable
-                  onSelectionChange={(value) => setSiteId(value)}
-                >
-                  {SortSiteList.map((site) => (
-                    <SelectItem
-                      key={site.id}
-                      value={JSON.stringify(site.id)}
-                      label={site.name}
-                    >
-                      {site.name}
-                    </SelectItem>
-                  ))}
-                </Select> */}
-
                 <Autocomplete
                   defaultItems={SortSiteList}
                   isDisabled={isLoading}
@@ -354,7 +299,7 @@ function App() {
                     <img
                       width="30"
                       height="30"
-                      src="https://img.icons8.com/ios/50/949494/summary-list.png"
+                      src={SummaryIconPNG}
                       alt="summary-list"
                     />
                     <span> Summary</span>
@@ -369,12 +314,7 @@ function App() {
                 title={
                   <div className="flex items-center space-x-2">
                     <RouterIcon />
-                    {/* <img
-                      width="30"
-                      height="30"
-                      src="https://img.icons8.com/color/48/network-gateway.png"
-                      alt="network-gateway"
-                    /> */}
+
                     <span>Router's</span>
                   </div>
                 }
@@ -390,25 +330,16 @@ function App() {
                     <img
                       width="30"
                       height="30"
-                      src="https://img.icons8.com/ios/50/748893/switch.png"
+                      src={SwitchIconPNG}
                       alt="switch"
                     />
-                    {/* <img
-                      width="30"
-                      height="30"
-                      src="https://img.icons8.com/color/48/internet-hub.png"
-                      alt="internet-hub"
-                    /> */}
+
                     <span>Switches</span>
                   </div>
                 }
               >
                 <SwitchLoadingModal loading={loading} />
                 <Switch48p DeviceSummary={siteDeviceSummary}></Switch48p>
-                {/* <SwitchPanel
-                  DeviceSummary={siteDeviceSummary}
-                  className="flex-row"
-                ></SwitchPanel> */}
               </Tab>
               <Tab
                 key="videos"
@@ -418,7 +349,7 @@ function App() {
                     <img
                       width="30"
                       height="30"
-                      src="https://img.icons8.com/ios/50/237EE6/wi-fi-connected.png"
+                      src={WIFIIcon}
                       alt="wi-fi-connected"
                     />
                     <span>Access Points</span>
@@ -429,8 +360,6 @@ function App() {
                 <AccessPoints DeviceSummary={siteDeviceSummary} />
               </Tab>
             </Tabs>
-
-            <ProfileContent />
           </AuthenticatedTemplate>
           <UnauthenticatedTemplate>
             <div className="grid mt-40 px-4 place-content-center">
@@ -439,8 +368,8 @@ function App() {
                   <img
                     width="64"
                     height="64"
-                    src="https://img.icons8.com/external-flaticons-flat-flat-icons/64/external-caution-map-and-navigation-flaticons-flat-flat-icons.png"
-                    alt="external-caution-map-and-navigation-flaticons-flat-flat-icons"
+                    src={CautionIcon}
+                    alt="Caution Icon"
                   />
                 </div>
 
@@ -459,81 +388,6 @@ function App() {
         </PageLayout>
       </main>
     </NextUIProvider>
-  );
-}
-
-function ProfileContent() {
-  const { instance, accounts } = useMsal();
-  const [graphData, setGraphData] = useState(null);
-  const [dhcpData, setDhcpData] = useState(null);
-
-  const name = accounts[0] && accounts[0].name;
-
-  function RequestProfileData() {
-    const request = {
-      ...loginRequest,
-      account: accounts[0],
-    };
-
-    // Silently acquires an access token which is then attached to a request for Microsoft Graph data
-    instance
-      .acquireTokenSilent(request)
-      .then((response) => {
-        callMsGraph(response.accessToken).then((response) =>
-          setGraphData(response)
-        );
-      })
-      .catch((e) => {
-        instance.acquireTokenPopup(request).then((response) => {
-          callMsGraph(response.accessToken).then((response) =>
-            setGraphData(response)
-          );
-        });
-      });
-  }
-
-  function RequestDhcpData() {
-    const request = {
-      ...loginRequest,
-      account: accounts[0],
-    };
-
-    // Silently acquires an access token which is then attached to a request for Microsoft Graph data
-    instance
-      .acquireTokenSilent(request)
-      .then((response) => {
-        callDHCP(response.accessToken).then((response) =>
-          setDhcpData(response)
-        );
-      })
-      .catch((e) => {
-        instance.acquireTokenPopup(request).then((response) => {
-          callDHCP(response.accessToken).then((response) =>
-            setDhcpData(response)
-          );
-        });
-      });
-  }
-
-  return (
-    <>
-      <Card textAlign="left" px={6}>
-        <h1 as="h2" size="lg" mt={0} mb={125}></h1>
-      </Card>
-      {/* {graphData ? (
-        <ProfileData graphData={graphData} dhcpData={dhcpData} />
-      ) : (
-        <Button
-          variant="secondary"
-          onClick={() => {
-            RequestProfileData();
-            RequestDhcpData();
-          }}
-        >
-          Request Profile Information
-        </Button>
-      )} */}
-    </>
   );
 }
 

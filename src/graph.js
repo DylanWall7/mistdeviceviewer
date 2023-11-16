@@ -1,4 +1,9 @@
-import { graphConfig, DHCPStats, PostReservation } from "./authConfig";
+import {
+  graphConfig,
+  DHCPStats,
+  PostReservation,
+  graphConfigImage,
+} from "./authConfig";
 
 /**
  * Attaches a given access token to a Microsoft Graph API call. Returns information about the user
@@ -15,6 +20,21 @@ export async function callMsGraph(accessToken) {
   };
 
   return fetch(graphConfig.graphMeEndpoint, options)
+    .then((response) => response.json())
+    .catch((error) => console.log(error));
+}
+export async function callMsGraphImage(accessToken) {
+  const headers = new Headers();
+  const bearer = `Bearer ${accessToken}`;
+
+  headers.append("Authorization", bearer);
+
+  const options = {
+    method: "GET",
+    headers: headers,
+  };
+
+  return fetch(graphConfigImage.graphMeImageEndpoint, options)
     .then((response) => response.json())
     .catch((error) => console.log(error));
 }

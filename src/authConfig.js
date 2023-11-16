@@ -24,6 +24,9 @@ export const GizmoRequest = {
 export const graphConfig = {
   graphMeEndpoint: "https://graph.microsoft.com/v1.0/me",
 };
+export const graphConfigImage = {
+  graphMeImageEndpoint: "https://graph.microsoft.com/v1.0/me/photo/$value",
+};
 
 export const PostReservation = {
   PostReservationEndpoint: "https://gizmo.kiewitplaza.com/api/dhcp/reservation",

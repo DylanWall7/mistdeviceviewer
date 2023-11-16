@@ -11,6 +11,7 @@ import {
   TableCell,
 } from "@nextui-org/react";
 import { Chip } from "@nextui-org/react";
+import CloudIcon from "../Images/CloudIcon.png";
 
 const uptimetodhm = (uptime) => {
   let days = Math.floor(uptime / 86400);
@@ -52,12 +53,7 @@ const renderMistCell = (cellValue, columnKey) => {
   ) {
     return (
       <TableCell>
-        <img
-          width="30"
-          height="30"
-          src="https://img.icons8.com/ios-glyphs/30/377DE3/foggy-night-1.png"
-          alt="foggy-night-1"
-        />
+        <img width="30" height="30" src={CloudIcon} alt="Cloud Icon" />
       </TableCell>
     );
   }

@@ -1,79 +1,45 @@
 import SingleStack from "../Images/SingleStack.png";
+import CopperPortDownPNG from "../Images/CopperPortDown.png";
+import CopperPortUpPNG from "../Images/CopperPortUp.png";
+import CopperPortErrPNG from "../Images/CopperPortErr.png";
+import VcPortUpPNG from "../Images/VcPortUp.png";
+import FiberPortDownPNG from "../Images/FiberPortDown.png";
+import FiberPortUpPNG from "../Images/FiberPortUp.png";
+import FiberPortErrPNG from "../Images/FiberPortErr.png";
 
 export const CopperPortDown = () => {
-  return (
-    <img
-      width="25"
-      height="25"
-      src="https://img.icons8.com/ios/50/ffffff/ethernet-off.png"
-      alt="Port Down"
-    />
-  );
+  return <img width="25" height="25" src={CopperPortDownPNG} alt="Port Down" />;
 };
 
 export const CopperPortUp = () => {
-  return (
-    <img
-      width="25"
-      height="25"
-      src="https://img.icons8.com/ios/50/25DC54/ethernet-off.png"
-      alt="Port Up"
-    />
-  );
+  return <img width="25" height="25" src={CopperPortUpPNG} alt="Port Up" />;
 };
 
 export const CopperPortErr = () => {
   return (
-    <img
-      width="25"
-      height="25"
-      src="https://img.icons8.com/ios/50/F42F2F/ethernet-off.png"
-      alt="ethernet-off"
-    />
+    <img width="25" height="25" src={CopperPortErrPNG} alt="ethernet-off" />
   );
 };
 
 export const VcpPortUp = () => {
-  return (
-    <img
-      width="25"
-      height="25"
-      src="https://img.icons8.com/ios-filled/50/25DC54/sorting-arrows.png"
-      alt="sorting-arrows"
-    />
-  );
+  return <img width="25" height="25" src={VcPortUpPNG} alt="sorting-arrows" />;
 };
 
 export const FiberPortUp = () => {
   return (
-    <img
-      width="25"
-      height="25"
-      src="https://img.icons8.com/ios/50/25DC54/rounded-square.png"
-      alt="rounded-square"
-    />
+    <img width="25" height="25" src={FiberPortUpPNG} alt="rounded-square" />
   );
 };
 
 export const FiberPortDown = () => {
   return (
-    <img
-      width="25"
-      height="25"
-      src="https://img.icons8.com/ios/50/ffffff/rounded-square.png"
-      alt="rounded-square"
-    />
+    <img width="25" height="25" src={FiberPortDownPNG} alt="rounded-square" />
   );
 };
 
 export const FiberPortErr = () => {
   return (
-    <img
-      width="25"
-      height="25"
-      src="https://img.icons8.com/ios/50/F42F2F/rounded-square.png"
-      alt="rounded-square"
-    />
+    <img width="25" height="25" src={FiberPortErrPNG} alt="rounded-square" />
   );
 };
 

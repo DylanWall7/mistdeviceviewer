@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { useMsal } from "@azure/msal-react";
 import { GizmoRequest } from "../authConfig";
@@ -26,43 +26,13 @@ import { FiberPortDown } from "./PortTypes";
 import { CopperPortErr } from "./PortTypes";
 import { FiberPortErr } from "./PortTypes";
 import { SingleSWA } from "./PortTypes";
+import ArrowLeft from "../Images/ArrowLeft.png";
+import NetworkCable from "../Images/NetworkCable.png";
+import Stack from "../Images/Stack.png";
 
 import LoadingModal from "./LoadingModal";
 
 export const Switch48p = ({ DeviceSummary }) => {
-  const MyCheckBox = extendVariants(Checkbox, {
-    variants: {
-      // <- modify/add variants
-
-      isDisabled: {
-        true: {
-          wrapper: "before:border-gray-500",
-          label: "text-danger",
-        },
-        false: {
-          wrapper: "before:border-success",
-          label: "text-success",
-        },
-      },
-      isInvalid: {
-        true: {
-          wrapper: "before:border-danger",
-          label: "text-danger",
-        },
-      },
-    },
-    defaultVariants: {
-      // <- modify/add default variants
-      isDisabled: true,
-    },
-    compoundVariants: [
-      // <- modify/add compound variants
-      {
-        isDisabled: true,
-      },
-    ],
-  });
-
   const { instance, accounts } = useMsal();
   const request = {
     ...GizmoRequest,
@@ -72,7 +42,7 @@ export const Switch48p = ({ DeviceSummary }) => {
   const DisplayPorts = ({ ports, pic_id, memberid, clients }) => {
     return (
       <>
-        <div key={pic_id} className="flex flex-row ">
+        <div key={memberid} className="flex flex-row ">
           {ports
             .filter((port) => port.id % 2 === 0)
 
@@ -175,7 +145,7 @@ export const Switch48p = ({ DeviceSummary }) => {
                             <img
                               width="24"
                               height="24"
-                              src="https://img.icons8.com/material-outlined/24/network-cable.png"
+                              src={NetworkCable}
                               alt="network-cable"
                             />
                             <p className="text-md m-1 text-center ">
@@ -396,7 +366,7 @@ export const Switch48p = ({ DeviceSummary }) => {
                             <img
                               width="24"
                               height="24"
-                              src="https://img.icons8.com/material-outlined/24/network-cable.png"
+                              src={NetworkCable}
                               alt="network-cable"
                             />
                             <p className="text-md m-1 text-center ">
@@ -534,12 +504,7 @@ export const Switch48p = ({ DeviceSummary }) => {
     const [deviceDetails, setDeviceDetails] = useState([]);
     const [loading, setLoading] = useState(false);
     const AnchorIcon = (props) => (
-      <img
-        width="30"
-        height="30"
-        src="https://img.icons8.com/ios-glyphs/30/18bb5e/double-left--v1.png"
-        alt="double-left--v1"
-      />
+      <img width="30" height="30" src={ArrowLeft} alt="arrow left" />
     );
 
     const SortedSwitches = DeviceSummary.sort((a, b) => {
@@ -623,12 +588,7 @@ export const Switch48p = ({ DeviceSummary }) => {
                   data.custom?.vc_member_count === 1 ? (
                     <SingleSWA />
                   ) : (
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/fluency/48/stack.png"
-                      alt="stack"
-                    />
+                    <img width="48" height="48" src={Stack} alt="stack" />
                   )
                 }
                 subtitle={
@@ -798,8 +758,6 @@ export const Switch48p = ({ DeviceSummary }) => {
 
   return (
     <>
-      {/* <button onClick={onCreate}>Get Device List</button> */}
-
       <SwitchBox />
       <NSWAMessage />
     </>

@@ -1,9 +1,12 @@
 import React from "react";
-
+import Axios from "axios";
 import { useIsAuthenticated } from "@azure/msal-react";
 import { SignInButton } from "./SignInButton";
 import { SignOutButton } from "./SignOutButton";
 import { useMsal } from "@azure/msal-react";
+import { loginRequest } from "../authConfig";
+
+import { callMsGraph } from "../graph";
 
 import {
   Navbar,
@@ -20,12 +23,60 @@ import Logo from "../Images/logo.png";
  * Renders the navbar component with a sign-in button if a user is not authenticated
  */
 export const PageLayout = (props) => {
+  const [graphData, setGraphData] = React.useState(null);
+  const [imageUrl, setImageUrl] = React.useState(null);
+  const [dhcpData, setDhcpData] = React.useState(null);
+
   const isAuthenticated = useIsAuthenticated();
   const { instance, accounts } = useMsal();
   const name = accounts[0] && accounts[0].name;
   const username = accounts[0] && accounts[0].username;
+  const [token, setToken] = React.useState(null);
 
   const avatarName = name ? name.charAt(0) : "";
+
+  function RequestProfileData() {
+    const request = {
+      ...loginRequest,
+      account: accounts[0],
+    };
+
+    // Silently acquires an access token which is then attached to a request for Microsoft Graph data
+    instance
+      .acquireTokenSilent(request)
+
+      .then((response) => {
+        setToken(response.accessToken);
+        callMsGraph(response.accessToken).then((response) =>
+          setGraphData(response)
+        );
+      })
+
+      .catch((e) => {
+        instance.acquireTokenPopup(request).then((response) => {
+          callMsGraph(response.accessToken).then((response) =>
+            setGraphData(response)
+          );
+        });
+      });
+  }
+
+  React.useEffect(() => {
+    if (isAuthenticated && !graphData) {
+      RequestProfileData();
+    }
+  }, []);
+
+  React.useEffect(() => {
+    Axios.get("https://graph.microsoft.com/v1.0/me/photo/$value", {
+      headers: { Authorization: `Bearer ${token}` },
+      responseType: "blob",
+    }).then((o) => {
+      const url = window.URL || window.webkitURL;
+      const blobUrl = url.createObjectURL(o.data);
+      setImageUrl(blobUrl);
+    });
+  }, [token]);
 
   return (
     <>
@@ -49,8 +100,9 @@ export const PageLayout = (props) => {
             <NavbarItem>
               <User
                 name={name}
-                description={username}
+                description={graphData?.jobTitle}
                 avatarProps={{
+                  src: imageUrl,
                   fallback: avatarName,
                 }}
               />
