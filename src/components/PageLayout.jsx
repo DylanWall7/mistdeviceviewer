@@ -5,6 +5,7 @@ import { SignInButton } from "./SignInButton";
 import { SignOutButton } from "./SignOutButton";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../authConfig";
+import { Skeleton } from "@nextui-org/react";
 
 import { callMsGraph } from "../graph";
 
@@ -78,6 +79,20 @@ export const PageLayout = (props) => {
     });
   }, [token]);
 
+  const Loadinguser = () => {
+    return (
+      <div className="max-w-[300px] w-full flex items-center gap-3">
+        <div>
+          <Skeleton className="flex rounded-full w-12 h-12" />
+        </div>
+        <div className="w-full flex flex-col gap-2">
+          <Skeleton className="h-3 w-3/5 rounded-lg" />
+          <Skeleton className="h-3 w-4/5 rounded-lg" />
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <Navbar className="bg-neutral-900">
@@ -98,14 +113,18 @@ export const PageLayout = (props) => {
         <NavbarContent justify="end">
           {isAuthenticated ? (
             <NavbarItem>
-              <User
-                name={name}
-                description={graphData?.jobTitle}
-                avatarProps={{
-                  src: imageUrl,
-                  fallback: avatarName,
-                }}
-              />
+              {imageUrl ? (
+                <User
+                  name={name}
+                  description={graphData?.jobTitle}
+                  avatarProps={{
+                    src: imageUrl,
+                    fallback: avatarName,
+                  }}
+                />
+              ) : (
+                <Loadinguser />
+              )}
             </NavbarItem>
           ) : (
             ""
