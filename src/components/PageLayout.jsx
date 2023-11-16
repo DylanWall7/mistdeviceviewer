@@ -77,7 +77,7 @@ export const PageLayout = (props) => {
       const blobUrl = url.createObjectURL(o.data);
       setImageUrl(blobUrl);
     });
-  }, [token]);
+  }, [token, graphData]);
 
   const Loadinguser = () => {
     return (
@@ -95,7 +95,7 @@ export const PageLayout = (props) => {
 
   return (
     <>
-      <Navbar className="bg-neutral-900">
+      <Navbar position="static" className="bg-neutral-900">
         <NavbarBrand>
           <Image width={250} alt="Logo" src={Logo} />
         </NavbarBrand>
