@@ -48,6 +48,7 @@ export const PageLayout = (props) => {
 
       .then((response) => {
         setToken(response.accessToken);
+
         callMsGraph(response.accessToken).then((response) =>
           setGraphData(response)
         );
@@ -77,7 +78,7 @@ export const PageLayout = (props) => {
       const blobUrl = url.createObjectURL(o.data);
       setImageUrl(blobUrl);
     });
-  }, [token, graphData]);
+  }, [token]);
 
   const Loadinguser = () => {
     return (
@@ -113,18 +114,13 @@ export const PageLayout = (props) => {
         <NavbarContent justify="end">
           {isAuthenticated ? (
             <NavbarItem>
-              {imageUrl ? (
-                <User
-                  name={name}
-                  description={graphData?.jobTitle}
-                  avatarProps={{
-                    src: imageUrl,
-                    fallback: avatarName,
-                  }}
-                />
-              ) : (
-                <Loadinguser />
-              )}
+              <User
+                name={name}
+                description={username}
+                avatarProps={{
+                  fallback: avatarName,
+                }}
+              />
             </NavbarItem>
           ) : (
             ""
